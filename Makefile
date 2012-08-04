@@ -1,11 +1,11 @@
 ########################################
-# 
+#
 # build parameters
 #
 ########################################
 
 # installation prefix
-PREFIX=/usr/local
+PREFIX=/usr/local/oecore-x86_64/site-config-armv7a-angstrom-linux-gnueabi/usr
 
 ########################################
 #
@@ -16,8 +16,8 @@ PREFIX=/usr/local
 OPTIMIZE=#-O6 -march=pentium4 -mfpmath=sse -fomit-frame-pointer -funroll-loops
 PROFILER=#-pg
 DEBUG=#-ggdb
-CXXFLAGS=-pipe -Wall $(OPTIMIZE) $(DEBUG) `sdl-config --cflags` -DPREFIX=L\"$(PREFIX)\" $(PROFILER)
-LNFLAGS=-pipe -lSDL_ttf -lfreetype `sdl-config --libs` -lz -lSDL_mixer $(PROFILER)
+CXXFLAGS+= -pipe -Wall -I/usr/local/oecore-x86_64/sysroots/armv7a-angstrom-linux-gnueabi/usr/include -I/usr/local/oecore-x86_64/sysroots/armv7a-angstrom-linux-gnueabi/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -DPREFIX=L\"$(PREFIX)\"
+LNFLAGS= -pipe -lSDL_ttf -lfreetype -L/usr/local/oecore-x86_64/sysroots/armv7a-angstrom-linux-gnueabi/usr/lib -lSDL -lpthread -lz -lSDL_mixer $(PROFILER)
 INSTALL=install
 
 TARGET=einstein

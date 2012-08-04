@@ -5,6 +5,7 @@
 #endif
 #include "unicode.h"
 #include "exceptions.h"
+#include <string.h>
 
 
 /// Returns length of wide character in utf-8

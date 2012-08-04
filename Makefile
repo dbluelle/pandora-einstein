@@ -63,6 +63,13 @@ run: $(TARGET)
 install: $(TARGET)
 	$(INSTALL) -s -D $(TARGET) $(PREFIX)/bin/$(TARGET)
 	$(INSTALL) -D einstein.res $(PREFIX)/share/einstein/res/einstein.res
-	
+
+pnd: $(TARGET)
+	arm-angstrom-linux-gnueabi-strip $(TARGET)
+	cp $(TARGET) pnd/
+	cp resources/res/einstein.res pnd/
+	./pnd_make.sh -c -d pnd -p einstein.pnd -x pnd/einstein.xml -i pnd/einstein.png
+
+
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 

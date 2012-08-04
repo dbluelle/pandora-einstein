@@ -2,6 +2,7 @@
 #include <zlib.h>
 #include "convert.h"
 #include "exceptions.h"
+#include <string.h>
 
 
 ResourceCompressor::ResourceCompressor() 

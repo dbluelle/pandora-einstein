@@ -23,7 +23,7 @@ static void initScreen()
     atexit(SDL_Quit);
     if (TTF_Init())
         throw Exception(L"Error initializing font engine");
-    screen.setMode(VideoMode(800, 600, 24, 
+    screen.setMode(VideoMode(800, 480, 24,
                 getStorage()->get(L"fullscreen", 1) != 0));
     screen.initCursors();
     

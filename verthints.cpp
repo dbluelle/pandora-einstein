@@ -5,10 +5,10 @@
 #include "sound.h"
 
 
-#define TILE_NUM     15
+#define TILE_NUM     11
 #define TILE_GAP     4
-#define TILE_X       12
-#define TILE_Y       495
+#define TILE_X       220
+#define TILE_Y       384
 #define TILE_WIDTH   48
 #define TILE_HEIGHT  48
 

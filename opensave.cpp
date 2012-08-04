@@ -92,7 +92,7 @@ class SaveCommand: public Command
         virtual void doAction() {
             Area area;
             area.add(parentArea, false);
-            area.add(new Window(170, 280, 460, 100, L"blue.bmp"));
+            area.add(new Window(170, 180, 460, 100, L"blue.bmp"));
             std::wstring name;
             if (savedGame.isExists())
                 name = savedGame.getName();
@@ -162,15 +162,15 @@ static void showListWindow(SavesList &list, Command **commands,
 {
     Font titleFont(L"nova.ttf", 26);
 
-    area.add(new Window(250, 90, 300, 420, L"blue.bmp"));
-    area.add(new Label(&titleFont, 250, 95, 300, 40, Label::ALIGN_CENTER,
+    area.add(new Window(250, 30, 300, 420, L"blue.bmp"));
+    area.add(new Label(&titleFont, 250, 35, 300, 40, Label::ALIGN_CENTER,
                 Label::ALIGN_MIDDLE, 255,255,0, title));
     ExitCommand exitCmd(area);
-    area.add(new Button(360, 470, 80, 25, font, 255,255,0, L"blue.bmp", 
+    area.add(new Button(360, 410, 80, 25, font, 255,255,0, L"blue.bmp", 
                 msg(L"close"), &exitCmd));
     area.add(new KeyAccel(SDLK_ESCAPE, &exitCmd)); 
 
-    int pos = 150;
+    int pos = 90;
     int no = 0;
     for (SavesList::iterator i = list.begin(); i != list.end(); i++) {
         SavedGame &game = *i;

@@ -135,7 +135,7 @@ void Watch::draw()
     int time = elapsed / 1000;
     std::wstring s = secToStr(time);
     
-    int x = 700;
+    int x = 240;
     int y = 24;
     int w, h;
     font->getSize(s, w, h);
@@ -549,18 +549,18 @@ void Game::run()
     area.add(horHints, false);
     
     PauseGameCommand pauseGameCmd(&area, watch, background);
-    BUTTON(12, 400, L"pause", &pauseGameCmd)
+    BUTTON(12, 410, L"pause", &pauseGameCmd)
     ToggleHintCommand toggleHintsCmd(verHints, horHints);
-    BUTTON(119, 400, L"switch", &toggleHintsCmd)
+    BUTTON(119, 410, L"switch", &toggleHintsCmd)
     SaveGameCommand saveCmd(&area, watch, background, this);
-    BUTTON(12, 440, L"save", &saveCmd)
+    BUTTON(12, 445, L"save", &saveCmd)
     GameOptionsCommand optionsCmd(&area);
-    BUTTON(119, 440, L"options", &optionsCmd)
+    BUTTON(119, 445, L"options", &optionsCmd)
     ExitCommand exitGameCmd(area);
-    BUTTON(226, 400, L"exit", &exitGameCmd)
+    BUTTON(12, 375, L"exit", &exitGameCmd)
     area.add(new KeyAccel(SDLK_ESCAPE, &exitGameCmd));
     HelpCommand helpCmd(&area, watch, background);
-    BUTTON(226, 440, L"help", &helpCmd)
+    BUTTON(119, 375, L"help", &helpCmd)
     area.add(watch, false);
 
     watch->start();

@@ -26,11 +26,14 @@ void MenuBackground::draw()
     Font font(L"nova.ttf", 28);
     std::wstring s(msg(L"einsteinFlowix"));
     int width = font.getWidth(s);
-    font.draw((screen.getWidth() - width) / 2, 30, 255,255,255, true, s);
+    font.draw((screen.getWidth() - width) / 2, 24, 255,255,255, true, s);
+
+    font.draw(200, 422, 255,255,255, true, L"Pandora Version");
+
     Font urlFont(L"luximb.ttf", 16);
     s = L"http://games.flowix.com";
     width = urlFont.getWidth(s);
-    urlFont.draw((screen.getWidth() - width) / 2, 60, 255,255,0, true, s);
+    urlFont.draw((screen.getWidth() - width) / 2, 52, 255,255,0, true, s);
     screen.addRegionToUpdate(0, 0, screen.getWidth(), screen.getHeight());
 }
 
@@ -147,6 +150,7 @@ class AboutCommand: public Command
             LABEL(260, 255, font, msg(L"version"))
             LABEL(280, 255, font, msg(L"copyright"))
             LABEL(330, 0, urlFont, L"http://games.flowix.com")
+            LABEL(360, 0, font, L"ported to Pandora by dbluelle")
 #undef LABEL
             ExitCommand exitCmd(area);
             area.add(new Button(360, 400, 80, 25, &font, 255,255,0, L"blue.bmp", 
@@ -177,19 +181,19 @@ void menu()
     area.draw();
         
     NewGameCommand newGameCmd(&area);
-    area.add(menuButton(340, &font, msg(L"newGame"), &newGameCmd));
+    area.add(menuButton(260, &font, msg(L"newGame"), &newGameCmd));
     LoadGameCommand loadGameCmd(&area);
-    area.add(menuButton(370, &font, msg(L"loadGame"), &loadGameCmd));
+    area.add(menuButton(285, &font, msg(L"loadGame"), &loadGameCmd));
     TopScoresCommand topScoresCmd(&area);
-    area.add(menuButton(400, &font, msg(L"topScores"), &topScoresCmd));
+    area.add(menuButton(310, &font, msg(L"topScores"), &topScoresCmd));
     RulesCommand rulesCmd(&area);
-    area.add(menuButton(430, &font, msg(L"rules"), &rulesCmd));
+    area.add(menuButton(335, &font, msg(L"rules"), &rulesCmd));
     OptionsCommand optionsCmd(&area);
-    area.add(menuButton(460, &font, msg(L"options"), &optionsCmd));
+    area.add(menuButton(360, &font, msg(L"options"), &optionsCmd));
     AboutCommand aboutCmd(&area);
-    area.add(menuButton(490, &font, msg(L"about"), &aboutCmd));
+    area.add(menuButton(385, &font, msg(L"about"), &aboutCmd));
     ExitCommand exitMenuCmd(area);
-    area.add(menuButton(520, &font, msg(L"exit"), &exitMenuCmd));
+    area.add(menuButton(410, &font, msg(L"exit"), &exitMenuCmd));
     area.add(new KeyAccel(SDLK_ESCAPE, &exitMenuCmd));
     
     area.draw();

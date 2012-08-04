@@ -14,11 +14,11 @@
 
 
 #define WIDTH		600
-#define HEIGHT		500
+#define HEIGHT		400
 #define CLIENT_WIDTH	570
-#define CLIENT_HEIGHT	390
+#define CLIENT_HEIGHT	300
 #define START_X		115
-#define START_Y		100
+#define START_Y		90
 
 
 class TextPage
@@ -177,12 +177,12 @@ void Description::updateInfo()
 
 void Description::run()
 {
-    area.add(new Window(100, 50, WIDTH, HEIGHT, L"blue.bmp"));
-    area.add(new Label(titleFont, 250, 60, 300, 40, Label::ALIGN_CENTER, Label::ALIGN_MIDDLE, 255, 255, 0, msg(L"rules")));
-    area.add(new Button(110, 515, 80, 25, buttonFont, 255, 255, 0, L"blue.bmp", msg(L"prev"), prevCmd));
-    area.add(new Button(200, 515, 80, 25, buttonFont, 255, 255, 0, L"blue.bmp", msg(L"next"), nextCmd));
+    area.add(new Window(100, 40, WIDTH, HEIGHT, L"blue.bmp"));
+    area.add(new Label(titleFont, 250, 45, 300, 40, Label::ALIGN_CENTER, Label::ALIGN_MIDDLE, 255, 255, 0, msg(L"rules")));
+    area.add(new Button(110, 410, 80, 25, buttonFont, 255, 255, 0, L"blue.bmp", msg(L"prev"), prevCmd));
+    area.add(new Button(200, 410, 80, 25, buttonFont, 255, 255, 0, L"blue.bmp", msg(L"next"), nextCmd));
     ExitCommand exitCmd(area);
-    area.add(new Button(610, 515, 80, 25, buttonFont, 255, 255, 0, L"blue.bmp", msg(L"close"), &exitCmd));
+    area.add(new Button(610, 410, 80, 25, buttonFont, 255, 255, 0, L"blue.bmp", msg(L"close"), &exitCmd));
     area.add(new KeyAccel(SDLK_ESCAPE, &exitCmd));
     printPage();
     area.run();

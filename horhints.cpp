@@ -7,9 +7,9 @@
 #define HINTS_COLS   3
 #define HINTS_ROWS   8
 #define TILE_GAP_X   4
-#define TILE_GAP_Y   4
+#define TILE_GAP_Y   0
 #define TILE_X       348
-#define TILE_Y       68
+#define TILE_Y       0
 #define TILE_WIDTH   48
 #define TILE_HEIGHT  48
 

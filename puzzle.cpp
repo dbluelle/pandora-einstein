@@ -5,7 +5,7 @@
 
 
 #define FIELD_OFFSET_X    12
-#define FIELD_OFFSET_Y    68
+#define FIELD_OFFSET_Y    64
 #define FIELD_GAP_X       4
 #define FIELD_GAP_Y       4
 #define FIELD_TILE_WIDTH  48

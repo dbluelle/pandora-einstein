@@ -281,6 +281,21 @@ void Area::handleEvent(const SDL_Event &event)
             break;
         
         case SDL_KEYDOWN:
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_HOME:
+				case SDLK_END:
+				{
+					int x,y;
+					SDL_GetMouseState(&x, &y);
+					for (WidgetsList::iterator i = widgets.begin(); i != widgets.end(); i++)
+						if ((*i)->onMouseButtonDown(event.key.keysym.sym == SDLK_HOME ? 1 : 3, x, y))
+							return;
+					break;
+				}
+				default:
+					break;
+			}
             for (WidgetsList::iterator i = widgets.begin(); i != widgets.end(); i++)
                 if ((*i)->onKeyDown(event.key.keysym.sym, 
                             (unsigned char)event.key.keysym.unicode))

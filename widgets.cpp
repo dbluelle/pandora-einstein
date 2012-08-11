@@ -227,6 +227,7 @@ bool KeyAccel::onKeyDown(SDLKey k, unsigned char ch)
 Area::Area()
 {
     timer = NULL;
+    shoulderbuttonpressed = false;
 }
 
 Area::~Area()
@@ -257,7 +258,7 @@ void Area::handleEvent(const SDL_Event &event)
     switch (event.type) {
         case SDL_MOUSEBUTTONDOWN:
             for (WidgetsList::iterator i = widgets.begin(); i != widgets.end(); i++)
-                if ((*i)->onMouseButtonDown(event.button.button, 
+                if ((*i)->onMouseButtonDown(shoulderbuttonpressed ? 3 : event.button.button, 
                             event.button.x, event.button.y))
                     return;
             break;
@@ -293,6 +294,10 @@ void Area::handleEvent(const SDL_Event &event)
 							return;
 					break;
 				}
+				case SDLK_RSHIFT:
+				case SDLK_RCTRL:
+					shoulderbuttonpressed=true;
+					break;
 				default:
 					break;
 			}
@@ -302,6 +307,18 @@ void Area::handleEvent(const SDL_Event &event)
                     return;
             break;
         
+        case SDL_KEYUP:
+			switch (event.key.keysym.sym)
+			{
+				case SDLK_RSHIFT:
+				case SDLK_RCTRL:
+					shoulderbuttonpressed=false;
+					break;
+				default:
+					break;
+			}
+            break;
+
         case SDL_QUIT:
             exit(0);
     }

@@ -103,7 +103,7 @@ class Area: public Widget
         bool terminate;
         Uint32 time;
         TimerHandler *timer;
-
+		bool shoulderbuttonpressed;
     public:
         Area();
         virtual ~Area();

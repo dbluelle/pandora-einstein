@@ -92,7 +92,7 @@ class SaveCommand: public Command
         virtual void doAction() {
             Area area;
             area.add(parentArea, false);
-            area.add(new Window(170, 180, 460, 100, L"blue.bmp"));
+            area.add(new Window(170, 280, 460, 100, L"blue.bmp"));
             std::wstring name;
             if (savedGame.isExists())
                 name = savedGame.getName();

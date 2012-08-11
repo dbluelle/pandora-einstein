@@ -64,7 +64,7 @@ install: $(TARGET)
 	$(INSTALL) -s -D $(TARGET) $(PREFIX)/bin/$(TARGET)
 	$(INSTALL) -D einstein.res $(PREFIX)/share/einstein/res/einstein.res
 
-pnd: $(TARGET)
+genpnd: $(TARGET)
 	arm-angstrom-linux-gnueabi-strip $(TARGET)
 	cp $(TARGET) pnd/
 	cp resources/res/einstein.res pnd/

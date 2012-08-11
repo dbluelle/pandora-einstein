@@ -52,7 +52,9 @@ at the right side and which at the left.
 If you no longer need some tip, remove it by right mouse button click.
 You can always see removed tips by pressing 'Switch' button.
 
-The mouse buttons are emulated by the A (left click) and B (right click) buttons
+The mouse buttons are emulated by the A (left click) and B (right click) buttons.
+The right click can also be emulated by holding one of the shoulder buttons 
+and tapping on the screen.
 
 "
 

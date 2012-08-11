@@ -10,27 +10,30 @@ class OptionsChangedCommand: public Command
     private:
         bool &fullscreen;
         bool &niceCursor;
+        bool &hideCursor;
         float &volume;
         Area *area;
     
     public:
-        OptionsChangedCommand(Area *a, bool &fs, bool &ns, float &v): 
-            fullscreen(fs), niceCursor(ns), volume(v) {
+        OptionsChangedCommand(Area *a, bool &fs, bool &ns,bool &hc, float &v): 
+            fullscreen(fs), niceCursor(ns),hideCursor(hc), volume(v) {
             area = a;
         };
 
         virtual void doAction() {
             bool oldFullscreen = (getStorage()->get(L"fullscreen", 1) != 0);
             bool oldCursor = (getStorage()->get(L"niceCursor", 1) != 0);
+            bool oldHide = (getStorage()->get(L"hideCursor", 1) != 0);
             float oldVolume = (float)getStorage()->get(L"volume", 20) / 100.0f;
             if (fullscreen != oldFullscreen) {
                 getStorage()->set(L"fullscreen", fullscreen);
-                screen.setMode(VideoMode(800, 600, 24, fullscreen));
+                screen.setMode(VideoMode(800, 480, 24, fullscreen));
             }
 #ifndef __APPLE__
-            if (niceCursor != oldCursor) {
+            if (niceCursor != oldCursor || hideCursor != oldHide) {
                 getStorage()->set(L"niceCursor", niceCursor);
-                screen.setCursor(niceCursor);
+                getStorage()->set(L"hideCursor", hideCursor);
+                screen.setCursor(niceCursor,hideCursor);
             }
 #endif
             if (volume != oldVolume) {
@@ -58,6 +61,7 @@ void showOptionsWindow(Area *parentArea)
 
     bool fullscreen = (getStorage()->get(L"fullscreen", 1) != 0);
     bool niceCursor = (getStorage()->get(L"niceCursor", 1) != 0);
+    bool hideCursor = (getStorage()->get(L"hideCursor", 0) != 0);
     float volume = ((float)getStorage()->get(L"volume", 20)) / 100.0f;
     
     Area area;
@@ -69,6 +73,7 @@ void showOptionsWindow(Area *parentArea)
     OPTION(260, L"fullscreen", fullscreen);
 #ifndef __APPLE__
     OPTION(280, L"niceCursor", niceCursor);
+    OPTION(300, L"hideCursor", hideCursor);
 #endif
     
     area.add(new Label(&font, 265, 330, 300, 20, Label::ALIGN_LEFT,
@@ -76,7 +81,7 @@ void showOptionsWindow(Area *parentArea)
     area.add(new Slider(360, 332, 160, 16, volume));
     
     ExitCommand exitCmd(area);
-    OptionsChangedCommand okCmd(&area, fullscreen, niceCursor, volume);
+    OptionsChangedCommand okCmd(&area, fullscreen, niceCursor,hideCursor, volume);
     area.add(new Button(315, 390, 85, 25, &font, 255,255,0, L"blue.bmp", 
                 msg(L"ok"), &okCmd));
     area.add(new Button(405, 390, 85, 25, &font, 255,255,0, L"blue.bmp", 

@@ -145,7 +145,8 @@ void Screen::showMouse()
         SDL_Rect dst = { x, y, mouseImage->w, mouseImage->h };
         if (src.w > 0) {
             SDL_BlitSurface(screen, &dst, mouseSave, &src);
-            SDL_BlitSurface(mouseImage, &src, screen, &dst);
+            if (!hideCursor)
+				SDL_BlitSurface(mouseImage, &src, screen, &dst);
             addRegionToUpdate(dst.x, dst.y, dst.w, dst.h);
         }
     }
@@ -260,17 +261,19 @@ void Screen::draw(int x, int y, SDL_Surface *tile)
     SDL_BlitSurface(tile, &src, screen, &dst);
 }
 
-void Screen::setCursor(bool nice)
+void Screen::setCursor(bool nice, bool hide)
 {
-    if (nice == niceCursor)
+    if ((nice == niceCursor) && (hideCursor == hide))
         return;
     
     bool oldVisible = mouseVisible;
     if (mouseVisible)
         hideMouse();
     niceCursor = nice;
+    hideCursor = hide;
+    
 
-    if (niceCursor)
+    if (niceCursor || hideCursor)
         SDL_SetCursor(emptyCursor);
     else
         SDL_SetCursor(cursor);

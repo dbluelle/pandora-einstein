@@ -45,6 +45,7 @@ class Screen
         int maxRegionsList;
         int saveX, saveY;
         bool niceCursor;
+        bool hideCursor;
         SDL_Cursor *cursor, *emptyCursor;
     
     public:
@@ -67,7 +68,7 @@ class Screen
         void setPixel(int x, int y, int r, int g, int b);
         SDL_Surface* getSurface() { return screen; };
         void draw(int x, int y, SDL_Surface *surface);
-        void setCursor(bool nice);
+        void setCursor(bool nice, bool hide);
         void initCursors();
         void doneCursors();
         SDL_Surface* createSubimage(int x, int y, int width, int height);

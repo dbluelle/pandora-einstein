@@ -13,6 +13,7 @@
 #include "messages.h"
 #include "sound.h"
 #include "descr.h"
+#include "storage.h"
 
 
 
@@ -32,14 +33,9 @@ void GameBackground::draw()
     SDL_Surface *tile = loadImage(L"title.bmp");
     screen.draw(8, 10, tile);
     SDL_FreeSurface(tile);
-    
-    Font titleFont(L"nova.ttf", 28);
-    titleFont.draw(screen.getSurface(), 20, 20, 255,255,0, true, 
-            msg(L"einsteinPuzzle"));
-    
+ 
     screen.addRegionToUpdate(0, 0, screen.getWidth(), screen.getHeight());
 }
-
 
 class ToggleHintCommand: public Command
 {
@@ -381,6 +377,7 @@ class GameOptionsCommand: public Command
         virtual void doAction() {
             showOptionsWindow(gameArea);
             gameArea->updateMouse();
+            gameArea->initMode(getStorage()->get(L"invertShoulder", 0));
             gameArea->draw();
         };
 };
@@ -547,7 +544,7 @@ void Game::run()
     area.add(puzzle, false);
     area.add(verHints, false);
     area.add(horHints, false);
-    
+
     PauseGameCommand pauseGameCmd(&area, watch, background);
     BUTTON(12, 410, L"pause", &pauseGameCmd)
     ToggleHintCommand toggleHintsCmd(verHints, horHints);
@@ -564,6 +561,8 @@ void Game::run()
     area.add(watch, false);
 
     watch->start();
+
+    area.initMode(getStorage()->get(L"invertShoulder", 0));
     area.run();
 }
 

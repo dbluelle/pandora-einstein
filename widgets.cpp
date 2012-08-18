@@ -2,6 +2,7 @@
 #include "main.h"
 #include "utils.h"
 #include "sound.h"
+#include "storage.h"
 
 
 //////////////////////////////////////////////////////////////////
@@ -228,6 +229,7 @@ Area::Area()
 {
     timer = NULL;
     shoulderbuttonpressed = false;
+    invertshouldermode = false;
 }
 
 Area::~Area()
@@ -257,12 +259,17 @@ void Area::handleEvent(const SDL_Event &event)
 {
     switch (event.type) {
         case SDL_MOUSEBUTTONDOWN:
+        {
+			int btn = event.button.button;
+			if ((shoulderbuttonpressed && !invertshouldermode)
+				|| (!shoulderbuttonpressed && invertshouldermode))
+				btn =  3;
             for (WidgetsList::iterator i = widgets.begin(); i != widgets.end(); i++)
-                if ((*i)->onMouseButtonDown(shoulderbuttonpressed ? 3 : event.button.button, 
+                if ((*i)->onMouseButtonDown(btn, 
                             event.button.x, event.button.y))
                     return;
             break;
-        
+        }
         case SDL_MOUSEBUTTONUP:
             for (WidgetsList::iterator i = widgets.begin(); i != widgets.end(); i++)
                 if ((*i)->onMouseButtonUp(event.button.button, 
@@ -297,6 +304,7 @@ void Area::handleEvent(const SDL_Event &event)
 				case SDLK_RSHIFT:
 				case SDLK_RCTRL:
 					shoulderbuttonpressed=true;
+					setMode();
 					break;
 				default:
 					break;
@@ -313,6 +321,7 @@ void Area::handleEvent(const SDL_Event &event)
 				case SDLK_RSHIFT:
 				case SDLK_RCTRL:
 					shoulderbuttonpressed=false;
+					setMode();
 					break;
 				default:
 					break;
@@ -378,6 +387,7 @@ void Area::draw()
 {
     for (WidgetsList::iterator i = widgets.begin(); i != widgets.end(); i++)
         (*i)->draw();
+    setMode();
 }
 
 
@@ -396,6 +406,26 @@ void Area::updateMouse()
     for (WidgetsList::iterator i = widgets.begin(); i != widgets.end(); i++)
         if ((*i)->onMouseMove(x, y))
                     return;
+}
+void Area::setMode()
+{
+	if (!timer)
+		return;
+	bool removemode = (shoulderbuttonpressed && !invertshouldermode)
+					|| (!shoulderbuttonpressed && invertshouldermode);
+	SDL_Rect rect = { 20, 20, 200, 30 };
+	SDL_FillRect(screen.getSurface(), &rect, 
+	SDL_MapRGB(screen.getSurface()->format, 0, 0, 255));
+    Font titleFont(L"nova.ttf", 28);
+    titleFont.draw(screen.getSurface(), 20, 20, 255,255,0, true, 
+            (removemode ? L"tap: remove" : L"tap: set"));
+    screen.addRegionToUpdate(20, 20, 200, 30);
+}
+void Area::initMode(int shouldermode)
+{
+	if (!timer)
+		return;
+	invertshouldermode = shouldermode;
 }
 
 

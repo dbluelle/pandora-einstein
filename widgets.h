@@ -104,6 +104,7 @@ class Area: public Widget
         Uint32 time;
         TimerHandler *timer;
 		bool shoulderbuttonpressed;
+		bool invertshouldermode;
     public:
         Area();
         virtual ~Area();
@@ -118,6 +119,8 @@ class Area: public Widget
         void setTimer(Uint32 interval, TimerHandler *handler);
         void updateMouse();
         virtual bool destroyByArea() { return false; };
+        void setMode();
+		void initMode(int shouldermode);
 };
 
 

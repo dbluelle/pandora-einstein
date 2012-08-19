@@ -275,6 +275,7 @@ class FailCommand: public Command
                     game->newGame();
                 else
                     game->restart();
+                gameArea->reset();
                 gameArea->draw();
                 gameArea->updateMouse();
             } else

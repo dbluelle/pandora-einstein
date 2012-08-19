@@ -427,6 +427,10 @@ void Area::initMode(int shouldermode)
 		return;
 	invertshouldermode = shouldermode;
 }
+void Area::reset()
+{
+    shoulderbuttonpressed = false;
+}
 
 
 

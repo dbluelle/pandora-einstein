@@ -121,6 +121,7 @@ class Area: public Widget
         virtual bool destroyByArea() { return false; };
         void setMode();
 		void initMode(int shouldermode);
+		void reset();
 };
 
 
